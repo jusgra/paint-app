@@ -1,3 +1,9 @@
+//import Cab from "/drawColors.js";
+
+const colors = ["black", "white", "blue", "red", "orange", "yellow", "green", "brown", "chocolate", "pink", "lime"];
+
+initColors();
+
 const drawGrid = (size) => {
   const table = document.getElementById("draw-grid");
   for (let i = 0; i < size; i++) {
@@ -17,6 +23,10 @@ drawGrid(gridSize);
 const cell = document.querySelectorAll("td");
 
 for (const n of cell) {
+  n.addEventListener("click", () => {
+    n.style.background = drawColor;
+    mousePressed = !mousePressed;
+  });
   n.addEventListener("mouseover", () => {
     if (mousePressed) n.style.background = drawColor;
     console.log(mousePressed);
@@ -31,14 +41,13 @@ for (const n of cell) {
   });
 }
 
-document.querySelector(".black").addEventListener("click", () => {
-  drawColor = "black";
-});
-
-document.querySelector(".red").addEventListener("click", () => {
-  drawColor = "red";
-});
-
-document.querySelector(".blue").addEventListener("click", () => {
-  drawColor = "blue";
-});
+function initColors() {
+  const colorPallet = document.getElementById("colors");
+  for (const single of colors) {
+    const div = colorPallet.appendChild(document.createElement("div"));
+    div.classList.add(single);
+    document.querySelector("." + single).addEventListener("click", () => {
+      drawColor = single;
+    });
+  }
+}
