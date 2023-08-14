@@ -8,34 +8,22 @@ let drawColor = "red";
 initPalette();
 initButtons();
 drawGrid(gridSize);
-addListeners();
+addCanvaListeners();
 
-// document.querySelector("button").addEventListener("click", () => {
-//   eraseGrid();
-//   gridSize = 20;
-
-//   drawGrid();
-
-//   addListeners();
-// });
-
-// document.querySelector(".canva-size").addEventListener("input", (e) => {
-//   //console.log(e.target.value);
-// });
-
-function addListeners() {
+function addCanvaListeners() {
   const cell = document.querySelectorAll("td");
   for (const n of cell) {
     n.addEventListener("click", () => {
       console.log(mousePressed);
       n.style.background = drawColor;
-      //mousePressed = !mousePressed;
     });
     n.addEventListener("mouseover", () => {
       if (mousePressed) n.style.background = drawColor;
       console.log(mousePressed);
     });
     n.addEventListener("mousedown", () => {
+      n.style.background = drawColor;
+
       mousePressed = !mousePressed;
     });
     n.addEventListener("mouseup", () => {
@@ -83,7 +71,7 @@ function initButtons() {
       eraseGrid();
       gridSize = canvaSizeSelections[i];
       drawGrid();
-      addListeners();
+      addCanvaListeners();
     });
   }
 }
