@@ -1,3 +1,7 @@
+body {
+    margin: 20px;
+}
+
 h1 {
     color: red;
 }
@@ -5,20 +9,31 @@ h1 {
 table,
 tr,
 td {
-    border: solid 2px black;
+    border: solid 1px black;
     border-collapse: collapse;
 }
 
 td {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
 }
 
-#colors>* {
+#color-palette {
+    border: 2px solid;
+    display: inline-block;
+    font-size: 0;
+    margin-top: 10px;
+}
+
+#color-palette>* {
+    border: 1px solid;
+    margin: 5px;
     width: 50px;
     height: 50px;
     display: inline-block;
+
 }
+
 
 .black {
     background-color: black;
