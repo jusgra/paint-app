@@ -1,7 +1,7 @@
 const colors = ["black", "white", "blue", "red", "yellow", "brown", "pink", "lime"];
 const canvaSizeSelections = [10, 15, 20, 25];
 
-let gridSize = 10;
+let gridSize = 20;
 let mousePressed = false;
 let drawColor;
 let selectedColor;
@@ -15,36 +15,35 @@ setDrawColor("red");
 function addCanvaListeners() {
   const cell = document.querySelectorAll("td");
   for (const n of cell) {
-    n.addEventListener("click", () => {
+    n.addEventListener("click", (e) => {
       n.style.background = drawColor;
       mousePressed = false;
     });
     n.addEventListener("mouseover", () => {
-      console.log("mouseover");
       if (mousePressed) n.style.background = drawColor;
     });
     n.addEventListener("mousedown", (e) => {
-      console.log("mousedown");
-      console.log(drawColor);
-      console.log(selectedColor);
+      mousePressed = false;
       switch (e.button) {
         case 0:
+          console.log("0");
           drawColor = selectedColor;
           n.style.background = drawColor;
+          mousePressed = true;
           break;
         case 2:
+          console.log("1");
           drawColor = "white";
           n.style.background = drawColor;
+          mousePressed = true;
           break;
         default:
-          console.log("nothing");
+          console.log("unused mouse button pressed");
+          break;
       }
-      console.log(e.button);
-
-      mousePressed = !mousePressed;
     });
     n.addEventListener("mouseup", () => {
-      mousePressed = !mousePressed;
+      mousePressed = false;
     });
   }
 }
@@ -68,9 +67,9 @@ function eraseGrid() {
 }
 
 function initPalette() {
-  const colorPalette = document.getElementById("color-palette");
+  const colorPalette = document.querySelector(".colors");
   for (const single of colors) {
-    const div = colorPalette.insertBefore(document.createElement("div"), document.querySelector(".selected"));
+    const div = colorPalette.appendChild(document.createElement("div"));
     div.classList.add(single);
     document.querySelector("." + single).addEventListener("click", () => {
       selectedColor = single;
