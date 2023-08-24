@@ -1,5 +1,5 @@
 const colors = ["black", "white", "blue", "red", "yellow", "brown", "pink", "lime"];
-const canvaSizeSelections = [10, 15, 20, 25];
+const canvaSizeSelections = [5, 10, 15, 20];
 
 let gridSize = 20;
 let mousePressed = false;
@@ -24,10 +24,10 @@ function addListeners() {
 
   const cell = document.querySelectorAll("td");
   for (const n of cell) {
-    n.addEventListener("click", (e) => {
-      n.style.background = drawColor;
-      mousePressed = false;
-    });
+    // n.addEventListener("click", (e) => {
+    //   n.style.background = drawColor;
+    //   mousePressed = false;
+    // });
     n.addEventListener("mouseover", () => {
       if (mousePressed) n.style.background = drawColor;
     });
@@ -49,9 +49,9 @@ function addListeners() {
           break;
       }
     });
-    n.addEventListener("mouseup", () => {
-      mousePressed = false;
-    });
+    // n.addEventListener("mouseup", () => {
+    //   mousePressed = false;
+    // });
   }
 }
 
@@ -86,7 +86,7 @@ function initPalette() {
 }
 
 function initButtons() {
-  const buttonsDiv = document.getElementById("buttons");
+  const buttonsDiv = document.querySelector(".buttons");
   for (let i = 0; i < canvaSizeSelections.length; i++) {
     const singleButton = buttonsDiv.appendChild(document.createElement("button"));
 
