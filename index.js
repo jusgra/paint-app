@@ -9,10 +9,19 @@ let selectedColor;
 initPalette();
 initButtons();
 drawGrid(gridSize);
-addCanvaListeners();
+addListeners();
 setDrawColor("red");
 
-function addCanvaListeners() {
+function addListeners() {
+  document.addEventListener("mousedown", (e) => {
+    mousePressed = true;
+    console.log("mousedown");
+  });
+  document.addEventListener("mouseup", () => {
+    console.log("mouseup");
+    mousePressed = false;
+  });
+
   const cell = document.querySelectorAll("td");
   for (const n of cell) {
     n.addEventListener("click", (e) => {
@@ -26,13 +35,11 @@ function addCanvaListeners() {
       mousePressed = false;
       switch (e.button) {
         case 0:
-          console.log("0");
           drawColor = selectedColor;
           n.style.background = drawColor;
           mousePressed = true;
           break;
         case 2:
-          console.log("1");
           drawColor = "white";
           n.style.background = drawColor;
           mousePressed = true;
@@ -88,7 +95,7 @@ function initButtons() {
       eraseGrid();
       gridSize = canvaSizeSelections[i];
       drawGrid();
-      addCanvaListeners();
+      addListeners();
     });
   }
 }
