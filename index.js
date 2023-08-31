@@ -2,7 +2,7 @@ const colors = ["black", "white", "blue", "red", "yellow", "brown", "pink", "lim
 const canvaSizeSelections = [5, 10, 15, 20];
 
 let gridSize = 20;
-let mousePressed = false;
+let mousePressed = { button: -1, state: false };
 let drawColor;
 let selectedColor;
 
@@ -14,44 +14,51 @@ setDrawColor("red");
 
 function addListeners() {
   document.addEventListener("mousedown", (e) => {
-    mousePressed = true;
-    console.log("mousedown");
+    console.log("upper msd");
+    mousePressed.button = e.button;
+    mousePressed.state = true;
   });
   document.addEventListener("mouseup", () => {
-    console.log("mouseup");
-    mousePressed = false;
+    console.log("upper msup");
+
+    mousePressed.button = -1;
+    mousePressed.state = false;
   });
 
   const cell = document.querySelectorAll("td");
   for (const n of cell) {
-    // n.addEventListener("click", (e) => {
-    //   n.style.background = drawColor;
-    //   mousePressed = false;
-    // });
-    n.addEventListener("mouseover", () => {
-      if (mousePressed) n.style.background = drawColor;
-    });
     n.addEventListener("mousedown", (e) => {
-      mousePressed = false;
       switch (e.button) {
         case 0:
           drawColor = selectedColor;
           n.style.background = drawColor;
-          mousePressed = true;
           break;
         case 2:
           drawColor = "white";
           n.style.background = drawColor;
-          mousePressed = true;
           break;
         default:
           console.log("unused mouse button pressed");
           break;
       }
     });
-    // n.addEventListener("mouseup", () => {
-    //   mousePressed = false;
-    // });
+    n.addEventListener("mouseover", () => {
+      if (mousePressed.state) {
+        switch (mousePressed.button) {
+          case 0:
+            drawColor = selectedColor;
+            n.style.background = drawColor;
+            break;
+          case 2:
+            drawColor = "white";
+            n.style.background = drawColor;
+            break;
+          default:
+            console.log("unused mouse button pressed");
+            break;
+        }
+      }
+    });
   }
 }
 
@@ -61,7 +68,6 @@ function drawGrid() {
     const tableRow = table.appendChild(document.createElement("tr"));
     for (let i = 0; i < gridSize; i++) {
       const cell = tableRow.appendChild(document.createElement("td"));
-      //cell.setAttribute("draggable", "true");
     }
   }
 }
