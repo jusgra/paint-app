@@ -96,12 +96,14 @@ function initButtons() {
   for (let i = 0; i < canvaSizeSelections.length; i++) {
     const singleButton = buttonsDiv.appendChild(document.createElement("button"));
 
-    singleButton.textContent = canvaSizeSelections[i] + "x" + canvaSizeSelections[i];
+    singleButton.textContent = canvaSizeSelections[i] + " x " + canvaSizeSelections[i];
     singleButton.addEventListener("click", () => {
-      eraseGrid();
-      gridSize = canvaSizeSelections[i];
-      drawGrid();
-      addListeners();
+      if (confirm("Changing grid size will erase the canva")) {
+        eraseGrid();
+        gridSize = canvaSizeSelections[i];
+        drawGrid();
+        addListeners();
+      }
     });
   }
 }
